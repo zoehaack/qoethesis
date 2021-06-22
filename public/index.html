@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]>      <html class="no-js"> <![endif]-->
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>HAS Study</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+  <link rel="stylesheet" href="./main.css">
+  <script src="./client.js" defer></script>
+</head>
+
+<body>
+  <div id="body">
+  <!--oncontextmenu="return false"-->
+  <div id="testing">
+    <div class="progress">
+      <div class="progress-bar" id="bar" role="progressbar" style="width: 0%;" aria-valuemin="0" aria-valuemax="100">
+      </div>
+    </div>
+    <div id="explainer">
+      <h1>User Testing</h1>
+      <p>Welcome to this study!</p>
+      <p>Please make sure to read the following instructions carefully!</p>
+      <p>In this experiment, you will watch 5 short video sequences - each around 30 seconds. <br>
+      After each video you will be asked to rate the video based on your experienced quality while watching.</p>
+      <p>The total duration of the study will be around 10 minutes, you can track your progress at any time by
+        checking the progress bar at the top of the page</p>
+      <p>Once you click "Submit" you will be shown an example video to make you familiar with the design and player handling. 
+        <br> After you have watched a video a rating scale and a button will appear. Please rate the video and click
+        the button to continue with the next video.
+      </p>
+      <p> In order to make sure that the videos play smoothly you have to wait until the progress bar has reached 100%,
+        then you can start the video. The video will start as soon as you click the play button.
+      </p>
+      <p>Please make sure that you base your rating on your experience and not on the content that you were shown. The
+        rating scale is referenced
+        as follows:
+      </p>
+      <div class="table-responsive">
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th scope="col">1</th>
+              <th scope="col">2</th>
+              <th scope="col">3</th>
+              <th scope="col">4</th>
+              <th scope="col">5</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Bad</td>
+              <td>Poor</td>
+              <td>Fair</td>
+              <td>Good</td>
+              <td>Excellent</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p>For those joining with mturk please enter your mturk ID below. At the end of the study you will receive a
+        personalized code which you will have to enter on the mturk platform to be compensated.
+      </p>
+      <p>If you are participating without a mturk Account please enter your first and last name in the input below"</p>
+      <form id="mturkForm">
+        <div class="form-group">
+          <label for="mturkId">mturk ID</label>
+          <input type="text" class="form-control" id="mturkId" aria-describedby="mturk" required>
+          <small id="mturk" class="form-text text-muted">If you don't have an mturk account enter your name</small>
+        </div>
+        <button type="submit" id="mturkButton" class="btn btn-primary">Submit</button>
+      </form>
+    </div>
+    <p id="notAll" class="hide notAllSelected">Please check your answers. Each must have a value.</p>
+
+    <div id="zero" class="hide">
+      <h2>Example Video</h2>
+      <div class="progress">
+        <div class="progress-bar progress-bar-striped progress-bar-animated" id="percentProgress0" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 0%"></div>
+      </div>
+      <div class="wrapper">
+        <img class="playpause" src="http://png-4.findicons.com/files/icons/2315/default_icon/256/media_play_pause_resume.png" alt="">
+        <video id="example" class="customPlay">
+          Your browser does not support the video tag.
+        </video>
+      </div>
+      <button id="start" onclick="startButton()" type="button" class="btn btn-primary hide">Let's start</button>
+    </div>
+
+    <!-- first video-->
+    <div id="one" class="hide video">
+      <h2>First Video</h2>
+      <div class="progress">
+        <div class="progress-bar progress-bar-striped progress-bar-animated" id="percentProgress1" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 0%"></div>
+      </div>
+      <div class="wrapper">
+        <img class="playpause" src="http://png-4.findicons.com/files/icons/2315/default_icon/256/media_play_pause_resume.png" alt="">
+      <video id="video1" class="customPlay">
+        Your browser does not support the video tag.
+      </video>
+      </div>
+      <form id="rating1" class="ratingForm hide">
+        <h5 class="question">What could you see in the video?</h5>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="vid1Content" id="vidContent1-1" value="Forest/Jungle"
+            required>
+          <label class="form-check-label" for="vidContent1-1">
+            Forest/Jungle
+          </label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="vid1Content" id="vidContent1-2" value="Machines">
+          <label class="form-check-label" for="vidContent1-2">
+            Machines
+          </label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="vid1Content" id="vidContent1-3"
+            value="Man & Woman in the dark">
+          <label class="form-check-label" for="vidContent1-3">
+            Man & Woman in the dark
+          </label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="vid1Content" id="vidContent1-4" value="Bouldering">
+          <label class="form-check-label" for="vidContent1-4">
+            Bouldering
+          </label>
+        </div>
+        <h5 class="question">Please rate how you experienced the video - from 1 being the worst to 5 being the best</h5>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="ratingVid1" id="Vid1Radio1" value="1" required>
+          <label class="form-check-label" for="Vid1Radio1">Bad</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="ratingVid1" id="Vid1Radio2" value="2">
+          <label class="form-check-label" for="Vid1Radio2">Poor</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="ratingVid1" id="Vid1Radio3" value="3">
+          <label class="form-check-label" for="Vid1Radio3">Fair</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="ratingVid1" id="Vid1Radio4" value="4">
+          <label class="form-check-label" for="Vid1Radio4">Good</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="ratingVid1" id="Vid1Radio5" value="5">
+          <label class="form-check-label" for="Vid1Radio5">Excellent</label>
+        </div>
+      </form>
+      <button id="firstButton" onclick="firstButton()" class="nextButton hide btn btn-primary" type="button">Next</button>
+    </div>
+    <!-- second video-->
+
+    <div id="two" class="hide video">
+      <h2>Second Video</h2>
+      <div class="progress">
+        <div class="progress-bar progress-bar-striped progress-bar-animated" id="percentProgress2" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 0%"></div>
+      </div>
+      <div class="wrapper">
+        <img class="playpause" src="http://png-4.findicons.com/files/icons/2315/default_icon/256/media_play_pause_resume.png" alt="">
+      <video id="video2" class="customPlay">
+        Your browser does not support the video tag.
+      </video>
+      </div>
+      <form id="rating2" class="ratingForm hide">
+        <h5 class="question">What could you see in the video?</h5>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="vid2Content" id="vidContent2-1" value="Forest/Jungle">
+          <label class="form-check-label" for="vidContent2-1">
+            Forest/Jungle
+          </label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="vid2Content" id="vidContent2-2" value="Machines">
+          <label class="form-check-label" for="vidContent2-2">
+            Machines
+          </label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="vid2Content" id="vidContent2-3"
+            value="Man & Woman in the dark">
+          <label class="form-check-label" for="vidContent2-3">
+            Man & Woman in the dark
+          </label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="vid2Content" id="vidContent2-4" value="Bouldering">
+          <label class="form-check-label" for="vidContent2-4">
+            Bouldering
+          </label>
+        </div>
+        <h5 class="question">Please rate how you experienced the video - from 1 being the worst to 5 being the best</h5>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="ratingVid2" id="Vid2Radio1" value="1">
+          <label class="form-check-label" for="Vid2Radio1">Bad</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="ratingVid2" id="Vid2Radio2" value="2">
+          <label class="form-check-label" for="Vid2Radio2">Poor</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="ratingVid2" id="Vid2Radio3" value="3">
+          <label class="form-check-label" for="Vid2Radio3">Fair</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="ratingVid2" id="Vid2Radio4" value="4">
+          <label class="form-check-label" for="Vid2Radio4">Good</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="ratingVid2" id="Vid2Radio5" value="5">
+          <label class="form-check-label" for="Vid2Radio5">Excellent</label>
+        </div>
+      </form>
+      <button id="secondButton" onclick="secondButton()" class="nextButton hide btn btn-primary" type="button">Next</button>
+    </div>
+    <!-- third video-->
+    <div id="three" class="hide video">
+      <h2>Third Video</h2>
+      <div class="progress">
+        <div class="progress-bar progress-bar-striped progress-bar-animated" id="percentProgress3" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 0%"></div>
+      </div>
+      <div class="wrapper">
+        <img class="playpause" src="http://png-4.findicons.com/files/icons/2315/default_icon/256/media_play_pause_resume.png" alt="">
+      <video id="video3" class="customPlay">
+        Your browser does not support the video tag.
+      </video>
+      </div>
+      <form id="rating3" class="ratingForm hide">
+        <h5 class="question">What could you see in the video?</h5>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="vid3Content" id="vidContent3-1" value="Forest/Jungle">
+          <label class="form-check-label" for="vidContent3-1">
+            Forest/Jungle
+          </label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="vid3Content" id="vidContent3-2" value="Machines">
+          <label class="form-check-label" for="vidContent3-2">
+            Machines
+          </label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="vid3Content" id="vidContent3-3"
+            value="Man & Woman in the dark">
+          <label class="form-check-label" for="vidContent3-3">
+            Man & Woman in the dark
+          </label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="vid3Content" id="vidContent3-4" value="Bouldering">
+          <label class="form-check-label" for="vidContent3-4">
+            Bouldering
+          </label>
+        </div>
+        <h5 class="question">Please rate how you experienced the video - from 1 being the worst to 5 being the best</h5>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="ratingVid3" id="Vid3Radio1" value="1">
+          <label class="form-check-label" for="Vid3Radio1">Bad</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="ratingVid3" id="Vid3Radio2" value="2">
+          <label class="form-check-label" for="Vid3Radio3">Poor</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="ratingVid3" id="Vid3Radio3" value="3">
+          <label class="form-check-label" for="Vid3Radio3">Fair</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="ratingVid3" id="Vid3Radio4" value="4">
+          <label class="form-check-label" for="Vid3Radio4">Good</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="ratingVid3" id="Vid3Radio5" value="5">
+          <label class="form-check-label" for="Vid3Radio5">Excellent</label>
+        </div>
+      </form>
+      <button id="thirdButton" onclick="thirdButton()" class="nextButton hide btn btn-primary" type="button">Next</button>
+    </div>
+    <!-- fourth video-->
+    <div id="four" class="hide">
+      <h2>Fourth Video</h2>
+      <div class="progress">
+        <div class="progress-bar progress-bar-striped progress-bar-animated" id="percentProgress4" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 0%"></div>
+      </div>
+      <div class="wrapper">
+        <img class="playpause" src="http://png-4.findicons.com/files/icons/2315/default_icon/256/media_play_pause_resume.png" alt="">
+      <video id="video4" class="customPlay">
+        Your browser does not support the video tag.
+      </video>
+      </div>
+      <form id="rating4" class="ratingForm hide">
+        <h5 class="question">What could you see in the video?</h5>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="vid4Content" id="vidContent4-1" value="Forest/Jungle">
+          <label class="form-check-label" for="vidContent4-1">
+            Forest/Jungle
+          </label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="vid4Content" id="vidContent4-2" value="Machines">
+          <label class="form-check-label" for="vidContent4-2">
+            Machines
+          </label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="vid4Content" id="vidContent4-3"
+            value="Man & Woman in the dark">
+          <label class="form-check-label" for="vidContent4-3">
+            Man & Woman in the dark
+          </label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="vid4Content" id="vidContent4-4" value="Bouldering">
+          <label class="form-check-label" for="vidContent4-4">
+            Bouldering
+          </label>
+        </div>
+        <h5 class="question">Please rate how you experienced the video - from 1 being the worst to 5 being the best</h5>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="ratingVid4" id="Vid4Radio1" value="1">
+          <label class="form-check-label" for="Vid4Radio1">Bad</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="ratingVid4" id="Vid4Radio2" value="2">
+          <label class="form-check-label" for="Vid4Radio2">Poor</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="ratingVid4" id="Vid4Radio3" value="3">
+          <label class="form-check-label" for="Vid4Radio3">Fair</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="ratingVid4" id="Vid4Radio4" value="4">
+          <label class="form-check-label" for="Vid4Radio4">Good</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="ratingVid4" id="Vid4Radio5" value="5">
+          <label class="form-check-label" for="Vid4Radio5">Excellent</label>
+        </div>
+      </form>
+      <button id="fourthButton" onclick="end()" type="button" class="hide btn btn-primary">Finish</button>
+    </div>
+  </div>
+  <div id="ending" class="hide">
+    <h3>Thank you for participating!</h3>
+    <p>Please copy the following code and input it on the mturk Platform</p>
+    <div class="form-group row">
+      <label class="completion" for="staticUuid" class="col-sm-2 col-form-label">Completion Code:</label>
+      <div class="col-sm-10">
+        <input type="text" readonly class="form-control-plaintext" id="staticUuid" value="test">
+        <button id="copyBtn" onclick="copyClipboard()" type="button" class="btn btn-primary">Copy</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="mobile" class="hide">
+  <h2>I'm sorry</h2>
+  <p>This study is only available for Desktop Users.</p>
+</div>
+<div id="safari" class="hide">
+  <h2>I'm sorry</h2>
+  <p>This study is not available for Safari Users - please try another browser.</p>
+</div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous">
+  </script>
+</body>
+
+</html>
